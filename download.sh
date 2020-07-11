@@ -22,7 +22,7 @@ then
         then 
                 youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' $URL
         else
-                echo "Type your desired filename without it's extension or quotation marks. E.G avideo."
+                echo "Type a filename without an extension or quotation marks. E.G avideo."
                 read filename
                 youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' --output "$filename.mp4" $URL
         fi
@@ -40,7 +40,7 @@ then
 	then 
 		youtube-dl -x --audio-format mp3 $URL
 	else
-		echo "Type your desired filename without it's extension or quotation marks. E.G "somemusic"."
+		echo "Type a filename without an extension or quotation marks. E.G somemusic."
 		read filename
 		youtube-dl -x --audio-format mp3 --output "$filename.mp3" $URL
 	fi
