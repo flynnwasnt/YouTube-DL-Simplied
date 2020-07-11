@@ -5,5 +5,5 @@ A bash script that makes downloading videos or songs/audio with YouTube-DL eaise
 
 Requirements:
 
-- Youtube-Dl (duh)
+- Youtube-DL (duh)
 - FFMPEG
