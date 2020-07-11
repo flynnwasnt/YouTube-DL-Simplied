@@ -20,7 +20,7 @@ then
         read answer
         if [ "$answer" = "n" ] || [ "$answer" = "N" ]
         then 
-                youtube-dl -x --audio-format mp3 $URL
+                youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' $URL
         else
                 echo "Type your desired filename without it's extension or quotation marks. E.G avideo."
                 read filename
