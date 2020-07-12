@@ -8,6 +8,7 @@ filename=""
 searchorurlvar=""
 squery=""
 searchformat=""
+playlist=""
 
 
 formatprompt () {
@@ -52,6 +53,23 @@ downloadmp3URL () {
 
 }
 
+
+downloadmp4URLnoname () {
+
+	                youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' $URL
+}
+
+
+downloadmp3URLnoname () {
+
+					youtube-dl -x --audio-format mp3 $URL
+
+}
+
+
+
+
+
 downloadmp4searched () {
 
 	        if [ "$answer" = "n" ] || [ "$answer" = "N" ]
@@ -78,6 +96,30 @@ downloadmp3searched () {
 }
 
 
+
+downloadmp4playlist () {
+
+	                youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' -o "%(title)s-%(id)s.%(ext)s" $URL
+}
+
+downloadmp3playlist () {
+
+					youtube-dl -x --audio-format mp3 -o "%(title)s-%(id)s.%(ext)s" $URL
+
+}
+
+
+transformplaylist () {
+
+	if [ "$playlist" = "P" ] || [ "$playlist" = "p" ] || [ "$playlist" = "playlist" ] || [ "$playlist" = "Playlist" ]
+	then
+		playlist=p
+	else
+		playlist=n
+	fi
+}
+
+
 searchorurl
 read searchorurlvar
 
@@ -96,18 +138,57 @@ then
 		downloadmp4searched
 	fi
 else
+	echo "What is the URL for the file you would like to download? Can be a direct link or a YouTube playlist."
+	read URL
 	formatprompt
 	read format
-	echo "What is the URL for the file you would like to download?"
-	read URL
-    echo "Would you like to rename the file? Y for yes and N for no."
-    read answer
-	if [ "$format" = "mp3" ] || [ "$format" = "MP3" ] || [ "$format" = "2" ]
+
+	if [ "$format" = "1" ] || [ "$format" = "MP4" ] || [ "$format" = "mp4" ]
 	then
-		downloadmp3URL
+		format=MP4
 	else
+		format=MP3
+	fi
+
+	echo "Is your URL a playlist or not? P for playlist and N if it's not."
+	read playlist
+	echo "Format: $format"
+	echo "Playlist: $playlist"
+
+	if [ "$playlist" = "P" ] || [ "$playlist" = "p" ] || [ "$playlist" = "playlist" ] || [ "$playlist" = "Playlist" ]
+	then
+		playlist=p
+	else
+		playlist=n
+	fi
+
+	if [ "$playlist" = "p" ] && [ "$format" = "MP3" ]
+	then
+	downloadmp3URLnoname
+ 	else
+ 		if [ "$playlist" = "n" ] && [ "$format" = "MP3" ]
+ 		then
+    	echo "Would you like to rename the file? Y for yes and N for no."
+    	read answer
+		downloadmp3URL
+		fi
+	fi
+
+	if [ "$playlist" = "p" ] && [ "$format" = "MP4" ]
+	then
+	downloadmp4URLnoname
+	else
+		if [ "$playlist" = "n" ] && [ "$format" = "MP4" ]
+		then
+    	echo "Would you like to rename the file? Y for yes and N for no."
+    	read answer
 		downloadmp4URL
+		fi
 	fi
 fi
+
+
+
+
 
 
