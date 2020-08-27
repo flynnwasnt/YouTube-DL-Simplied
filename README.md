@@ -1,5 +1,7 @@
-# YouTube-DL-Simplified
+# YouTube-DL-Simplified (depreciated)
 ![](example.gif)
+
+Replaced by https://github.com/flynnwasnt/YouTube-DL-Simplified-OLD
 
 A bash script that makes downloading videos or songs/audio with YouTube-DL eaiser by providing a menu system.
 
